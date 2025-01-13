@@ -39,3 +39,15 @@ try:
     print(response.content[0].text)
 except Exception as e:
     print(e)
+
+# official deepseek
+try:
+    client = OpenAI(
+    api_key='sk-', base_url="https://api.deepseek.com/beta"
+    ) 
+    response = (client.chat.completions.create
+                (temperature = temp, model = model_name,presence_penalty=1.2,messages=[{"role": "user", "content":prompt}]))
+    text = response.choices[0].message.content
+    print(text)
+except Exception as e:
+    print(e)
