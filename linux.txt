@@ -1,0 +1,15 @@
+===拷贝与克隆conda环境===
+
+1. 直接复制环境文件夹的方法:
+cp -r /path/to/original/env /path/to/new/env
+
+2. 复制后，您需要:
+a)首先注册新环境到 Conda:
+conda create --name new_env_name --clone /path/to/new/env 
+b) 或者，您也可以直接修改·condarc 文件，添加新环境的路径:
+envs_dirs:
+  - /path/to/new/env
+
+3. 使用新的环境
+conda activate new_env_name
+chmod -R u+w /path/to/new/env
