@@ -10,7 +10,7 @@ import openai
 from openai import OpenAI
 import anthropic
 
-# official o1
+# official openai
 try:
     client = OpenAI(api_key="sk-proj-")
     response = client.chat.completions.create(
@@ -27,6 +27,24 @@ try:
     print(text)
 except Exception as e:
     print(e)
+
+# official o1/o3 thinking mode
+
+prompt = """
+"""
+client = OpenAI(api_key="sk-proj-")
+response = client.responses.create(
+    model="o3-mini",
+    reasoning={"effort": "medium"},
+    input=[
+        {
+            "role": "user", 
+            "content": prompt
+        }
+    ]
+)
+
+
 
 # official claude
 claude_client = anthropic.Anthropic(api_key='sk-ant-')
