@@ -12,7 +12,7 @@ def read_jsonl(file_path):
                     print(f"解析出错: {e}，内容为: {line}")
     return data
 
-def write_jsonl(file_path):
+def write_jsonl(file_path,data):
     with open(file_path, 'w', encoding='utf-8') as f:
         for item in data:
             json_line = json.dumps(item, ensure_ascii=False)
