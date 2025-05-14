@@ -17,3 +17,13 @@ def write_jsonl(file_path,data):
         for item in data:
             json_line = json.dumps(item, ensure_ascii=False)
             f.write(json_line + '\n')
+            
+def write_keep_list():
+    with open('.json', 'w', encoding='utf-8') as f:
+        json.dump(out_list, f, indent=4, ensure_ascii=False)
+    # like this:
+    # [
+    #   {},
+    #   {},
+    #   {},
+    # ]
