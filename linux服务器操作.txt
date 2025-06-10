@@ -1,5 +1,5 @@
 # 查看当前有哪些代理
-env |grep proxy
+[命令]env |grep proxy
 可能会输出
 '''
 VSCODE_PROXY_URI=
@@ -7,5 +7,5 @@ https_proxy=
 ....
 '''
 使用
-unset VSCODE_PROXY_URI
+[命令]unset VSCODE_PROXY_URI
 来消除这些代理
