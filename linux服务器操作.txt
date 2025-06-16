@@ -1,5 +1,5 @@
-# 查看当前有哪些代理
-[命令]env |grep proxy
+# 查看当前有哪些代理并且删除
+[命令 ]env |grep proxy
 可能会输出
 '''
 VSCODE_PROXY_URI=
@@ -7,5 +7,9 @@ https_proxy=
 ....
 '''
 使用
-[命令]unset VSCODE_PROXY_URI
+[命令] unset VSCODE_PROXY_URI
 来消除这些代理
+
+# 检查端口号是否被占用
+[命令] lsof -i :8000
+然后就可以使用kill PID以删除
