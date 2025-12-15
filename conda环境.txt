@@ -14,3 +14,9 @@ envs_dirs:
 3. 使用新的环境
 conda activate new_env_name
 chmod -R u+w /path/to/new/env
+
+
+===如果遇到环境限制===
+比如
+The conflict is caused by: The user requested torch==2.6.0 The user requested (constraint)
+那么是之前环境中有某个torch，但是被删除后其限制文件没有被删除，访问/etc/pip/constraint.txt进行修改。
