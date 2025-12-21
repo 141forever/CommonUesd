@@ -1,5 +1,5 @@
 hf download HuggingFaceTB/Countdown-Task-GOLD --repo-type dataset --local-dir your-path
 
-train_dataset = Dataset.from_file(
+train_dataset = Dataset.from_parquet(
     "your-path/.parquet"
 )
