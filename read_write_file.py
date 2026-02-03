@@ -1,6 +1,6 @@
 import json
 
-def read_jsonl(file_path):
+def read_jsonl(file_path): # 一行一个dict
     data = []
     with open(file_path, 'r', encoding='utf-8') as f:
         for line in f:
@@ -10,6 +10,11 @@ def read_jsonl(file_path):
                     data.append(item)
                 except json.JSONDecodeError as e:
                     print(f"解析出错: {e}，内容为: {line}")
+    return data
+
+def read_json(file_path): # 一个list包裹，里面dict跨越多行
+        with open(file_path, "r", encoding="utf-8") as f:
+        data = json.load(f)
     return data
 
 def write_jsonl(file_path,data):
