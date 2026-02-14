@@ -1,3 +1,4 @@
+====================json文件====================
 import json
 
 def read_jsonl(file_path): # 一行一个dict
@@ -32,3 +33,10 @@ def write_keep_list():
     #   {},
     #   {},
     # ]
+
+====================parquet文件====================
+import pandas as pd
+
+df = pd.read_parquet(".parquet")
+
+data_list = df.to_dict("records")
