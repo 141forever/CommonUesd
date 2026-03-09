@@ -23,3 +23,6 @@ chmod -R u+w /path/to/new/env
 比如
 The conflict is caused by: The user requested torch==2.6.0 The user requested (constraint)
 那么是之前环境中有某个torch，但是被删除后其限制文件没有被删除，访问/etc/pip/constraint.txt（这个路径这样找到echo $PIP_CONSTRAINT）进行修改。
+
+===一些镜像===
+-i https://mirrors.aliyun.com/pypi/simple/
