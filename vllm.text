@@ -1,0 +1,81 @@
+=====最新版本vllm=====
+#api启动
+CUDA_VISIBLE_DEVICES=0 vllm serve [model-name] \
+  --host 0.0.0.0 \
+  --port 8000 \
+  --tensor-parallel-size 1 \
+  --gpu-memory-utilization 0.90 \
+  --max-model-len 1024 \
+  --max-num-seqs 128
+
+=====多线程推理=====
+from openai import OpenAI
+from concurrent.futures import ThreadPoolExecutor, as_completed
+from tqdm import tqdm
+import json
+import pdb
+import pandas as pd
+
+
+client = OpenAI(
+    base_url="http://127.0.0.1:8000/v1",
+    api_key="EMPTY",
+)
+
+MODEL_NAME = "Qwen3-4B-Instruct"
+BATCH_SIZE = 128
+MAX_TOKENS = 1024
+
+
+df = pd.read_parquet(".parquet")
+data_list = df.to_dict("records")
+
+
+all_prompts = []
+for d in data_list:
+    all_prompts.append(d['prompt'][1]['content'])
+    
+def generate_one(prompt):
+    resp = client.chat.completions.create(
+        model=MODEL_NAME,
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant. You first think about the reasoning process in the mind and then provide the user with the answer."},
+            {"role": "user", "content": prompt},
+        ],
+        max_tokens=MAX_TOKENS,
+        temperature=0.7,
+        top_p=0.95,
+    )
+    return resp.choices[0].message.content
+
+
+all_results = []
+
+for start in tqdm(range(0, len(all_prompts), BATCH_SIZE)):
+    batch_prompts = all_prompts[start:start + BATCH_SIZE]
+    batch_results = [None] * len(batch_prompts)
+
+    with ThreadPoolExecutor(max_workers=len(batch_prompts)) as executor:
+        future_to_idx = {
+            executor.submit(generate_one, prompt): i
+            for i, prompt in enumerate(batch_prompts)
+        }
+
+        for future in as_completed(future_to_idx):
+            idx = future_to_idx[future]
+            try:
+                batch_results[idx] = future.result()
+            except Exception as e:
+                batch_results[idx] = f"[ERROR] {e}"
+
+    for prompt, output in zip(batch_prompts, batch_results):
+        all_results.append({
+            "instruction": "You are a helpful assistant. You first think about the reasoning process in the mind and then provide the user with the answer.",
+            "input": prompt,
+            "output": output,
+        })
+
+with open('countdown_all.json', 'w', encoding='utf-8') as f:
+        json.dump(all_results, f, indent=4, ensure_ascii=False)
+
+print(f"Done! Total results: {len(all_results)}")
