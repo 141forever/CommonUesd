@@ -1,7 +1,10 @@
 ===================huggingface下载模型===================
 # 命令行中下载
 pip install huggingface_hub[hf_cli]
+# 如果是下载某个数据集
 hf download HuggingFaceTB/Countdown-Task-GOLD --repo-type dataset --local-dir your-path
+#如果是下载模型
+删掉 --repo-type dataset
 这里注意：下载下来的模型是单独的文件，请在your-path中用个文件夹框起来
 
 # python中加载数据
