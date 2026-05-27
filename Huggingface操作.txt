@@ -10,10 +10,12 @@ hf download HuggingFaceTB/Countdown-Task-GOLD --repo-type dataset --local-dir yo
 ===================python中读取数据===================
 from datasets import Dataset
 
-train_dataset = Dataset.from_parquet(
+dataset = Dataset.from_parquet(
     "your-path/.parquet"
 )
 
+#读取第i个元素
+dataset[i]
 ===================modelscope下载模型===================
 pip install modelscope
 
