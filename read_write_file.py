@@ -2,6 +2,10 @@
 with open("example.txt", "w") as f:
     f.write("Hello world\n")
     f.write("第二行内容")
+
+with open("example.txt", "r") as f:
+    for line in f:
+        print(line)
 ====================json文件====================
 import json
 
