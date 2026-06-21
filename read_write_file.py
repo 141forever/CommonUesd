@@ -42,9 +42,19 @@ def write_keep_list():
     #   {},
     # ]
 
-====================parquet文件====================
+====================parquet====================
 import pandas as pd
 
 df = pd.read_parquet(".parquet")
 
 data_list = df.to_dict("records")
+
+#写文件
+
+data = [
+    {"id": 1, "text": "hello", "score": 0.9},
+    {"id": 2, "text": "world", "score": 0.8},
+]
+
+df = pd.DataFrame(data)
+df.to_parquet("output.parquet", index=False)
