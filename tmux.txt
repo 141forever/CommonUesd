@@ -1,0 +1,4 @@
+新建：tmux new -s [name]
+打开：tmux attach -t [name]
+推出：ctrl+d
+切换模式：先ctrl+b再[
