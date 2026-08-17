@@ -1,3 +1,6 @@
+如果网不好，首先可以使用hf镜像，但是可能数据/模型不全。
+export HF_ENDPOINT=https://hf-mirror.com
+
 ===================huggingface下载数据或者模型===================
 # 命令行中下载
 pip install huggingface_hub[hf_cli]
