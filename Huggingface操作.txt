@@ -2,6 +2,8 @@
 export HF_ENDPOINT=https://hf-mirror.com
 
 ===================huggingface下载数据或者模型===================
+# 镜像
+HF_ENDPOINT=https://hf-mirror.com \ + （下面命令）
 # 命令行中下载
 pip install huggingface_hub[hf_cli]
 # 如果是下载某个数据集
